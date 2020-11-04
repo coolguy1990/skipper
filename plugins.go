@@ -18,7 +18,10 @@ func (o *Options) findAndLoadPlugins() error {
 	found := make(map[string]string)
 	done := make(map[string][]string)
 
+	log.Infof("Plugin Dirs: %v", o.PluginDirs)
+
 	for _, dir := range o.PluginDirs {
+		log.Infof("plugin dir: %v", dir)
 		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				// don't fail when default plugin dir is missing
@@ -258,7 +261,11 @@ func initFilterPlugin(sym plugin.Symbol, path string, args []string) (filters.Sp
 func (o *Options) loadPredicatePlugins(found map[string]string, done map[string][]string) error {
 	for _, pred := range o.PredicatePlugins {
 		name := pred[0]
+		log.Infof("Test predicate: %v", pred)
 		path, ok := found[name]
+
+		log.Infof("predicate found: path -> %v, ok -> %v", path, ok)
+
 		if !ok {
 			return fmt.Errorf("predicate plugin %s not found in plugin dirs", name)
 		}
@@ -275,6 +282,7 @@ func (o *Options) loadPredicatePlugins(found map[string]string, done map[string]
 
 func loadPredicatePlugin(path string, args []string) (routing.PredicateSpec, error) {
 	mod, err := plugin.Open(path)
+	log.Infof("loadPredicatePlugin mod: %v", mod)
 	if err != nil {
 		return nil, fmt.Errorf("open predicate module %s: %s", path, err)
 	}

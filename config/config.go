@@ -202,6 +202,8 @@ type Config struct {
 	SwarmLeaveTimeout                 time.Duration `yaml:"swarm-leave-timeout"`
 	SwarmStaticSelf                   string        `yaml:"swarm-static-self"`
 	SwarmStaticOther                  string        `yaml:"swarm-static-other"`
+	// geoip
+	GeoIpDb                           string         `yaml:"geo-ip-db"`
 }
 
 const (
@@ -408,6 +410,9 @@ const (
 	swarmRedisPoolTimeoutUsage             = "set redis get connection from pool timeout"
 	swarmRedisMaxConnsUsage                = "set max number of connections to redis"
 	swarmRedisMinConnsUsage                = "set min number of connections to redis"
+
+	// geoip
+	geoIpDbUsage						   = "set path of geo ip db"
 )
 
 func NewConfig() *Config {
@@ -594,6 +599,9 @@ func NewConfig() *Config {
 	flag.DurationVar(&cfg.SwarmLeaveTimeout, "swarm-leave-timeout", swarm.DefaultLeaveTimeout, swarmLeaveTimeoutUsage)
 	flag.StringVar(&cfg.SwarmStaticSelf, "swarm-static-self", "", swarmStaticSelfUsage)
 	flag.StringVar(&cfg.SwarmStaticOther, "swarm-static-other", "", swarmStaticOtherUsage)
+
+	// GeoIP:
+	flag.StringVar(&cfg.GeoIpDb, "geo-ip-db", "", geoIpDbUsage)
 
 	return cfg
 }
@@ -837,6 +845,9 @@ func (c *Config) ToOptions() skipper.Options {
 		// swim on localhost for testing
 		SwarmStaticSelf:  c.SwarmStaticSelf,
 		SwarmStaticOther: c.SwarmStaticOther,
+
+		// geoip
+		GeoIpDb: c.GeoIpDb,
 	}
 
 	if c.PluginDir != "" {

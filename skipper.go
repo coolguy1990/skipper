@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"github.com/zalando/skipper/predicates/geoip"
 	"io"
 	"io/ioutil"
 	"net"
@@ -659,6 +660,9 @@ type Options struct {
 	SwarmStaticSelf  string // 127.0.0.1:9001
 	SwarmStaticOther string // 127.0.0.1:9002,127.0.0.1:9003
 
+	// geo ip
+	GeoIpDb string
+
 	testOptions
 }
 
@@ -1165,6 +1169,7 @@ func run(o Options, sig chan os.Signal, idleConnsCH chan struct{}) error {
 		pauth.NewJWTPayloadAnyKVRegexp(),
 		methods.New(),
 		tee.New(),
+		geoip.New(&o.GeoIpDb),
 	)
 
 	// provide default value for wrapper if not defined

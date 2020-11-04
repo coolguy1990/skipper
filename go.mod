@@ -23,6 +23,7 @@ require (
 	github.com/oklog/ulid v1.3.1
 	github.com/opentracing/basictracer-go v1.0.0
 	github.com/opentracing/opentracing-go v1.1.0
+	github.com/oschwald/maxminddb-golang v1.7.0
 	github.com/pkg/errors v0.8.1
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
 	github.com/prometheus/client_golang v1.0.0
@@ -31,7 +32,7 @@ require (
 	github.com/sarslanhan/cronmask v0.0.0-20190709075623-766eca24d011
 	github.com/sirupsen/logrus v1.4.2
 	github.com/sony/gobreaker v0.4.1
-	github.com/stretchr/testify v1.4.0
+	github.com/stretchr/testify v1.6.1
 	github.com/szuecs/rate-limit-buffer v0.7.1
 	github.com/szuecs/routegroup-client v0.17.7
 	github.com/tidwall/gjson v1.4.0
