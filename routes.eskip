@@ -1,2 +1,5 @@
-test: * && GeoIP("DE") -> setResponseHeader("foo", "bar") ->  "http://localhost:8000";
-test2: * && GeoIP("US") -> setResponseHeader("foo", "baz") ->  "http://localhost:8000";
+US: GeoIP("US") -> setResponseHeader("X-Country-Code", "US") ->  inlineContent("Hello, There!! You are seeing the US site") -> <shunt>;
+DE: GeoIP("DE") -> setResponseHeader("X-Country-Code", "DE") ->  inlineContent("Hallo!! Sie sehen die DE-Site") -> <shunt>;
+IT: GeoIP("IT") -> setResponseHeader("X-Country-Code", "IT") ->  inlineContent("Ciao!! Stai visualizzando il sito IT") -> <shunt>;
+FR: GeoIP("FR") -> setResponseHeader("X-Country-Code", "FR") ->  inlineContent("Bonjour!! Vous voyez le site FR") -> <shunt>;
+NL: GeoIP("NL") -> setResponseHeader("X-Country-Code", "NL") ->  inlineContent("Hallo daar!! U ziet de NL-site") -> <shunt>;

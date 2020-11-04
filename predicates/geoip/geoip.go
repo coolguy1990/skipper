@@ -109,6 +109,8 @@ func (p *geoipPredicate) Match(r *http.Request) bool {
 
 	_, ok := p.countries[record.Country.ISOCode]
 
+	log.Infof("GeoIP Country Code: %v", record.Country.ISOCode)
+
 	if span != nil {
 		span.LogKV("GeoIP", record.Country.ISOCode)
 	}
